@@ -69,9 +69,8 @@ async def get_address(msg: types.Message, state=FSMContext):
     temp_env = jinja2.Environment(loader=temp_loader)
     template = temp_env.get_template("template.html")
     output_text = template.render(context)
-
-    config = pdfkit.configuration(wkhtmltopdf="C:\Program Files\wkhtmltopdf\\bin\wkhtmltopdf.exe")
-    pdfkit.from_string(output_text, f"{fullName}.pdf", configuration=config)
+    # config = pdfkit.configuration(wkhtmltopdf="C:\Program Files\wkhtmltopdf\\bin\wkhtmltopdf.exe")
+    pdfkit.from_string(output_text, f"{fullName}.pdf")
 
     full_data = "Quyidagi ma'lumotlar saqlandi:\n"
     full_data += f"Ismingiz: {fullName}\n"
