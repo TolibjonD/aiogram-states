@@ -41,7 +41,7 @@ async def get_phone(msg: types.Message, state=FSMContext):
     await state.update_data({
         "phone":phone
     })
-    await msg.answer("Yashash manzilingizni kiriting (Namuna: Namnamgan vil, Pop t, Vodiy MFY ): ", reply_markup=None)
+    await msg.answer("Yashash manzilingizni kiriting (Namuna: Namnamgan vil, Pop t, Vodiy MFY ): ", reply_markup=types.ReplyKeyboardRemove() )
     await RegistrationState.next()
 
 @dp.message_handler(state=RegistrationState.address)
