@@ -57,27 +57,34 @@ async def get_address(msg: types.Message, state=FSMContext):
     address = data.get("address")
 
     time = dt.datetime.now().strftime("%d-%B , %Y | %H:%M:%S")
-    context = {
-        "time":time,
-        "fullname":fullName,
-        "email":email,
-        "phone":phone,
-        "address":address
-    }
+    # context = {
+    #     "time":time,
+    #     "fullname":fullName,
+    #     "email":email,
+    #     "phone":phone,
+    #     "address":address
+    # }
 
-    temp_loader = jinja2.FileSystemLoader("./")
-    temp_env = jinja2.Environment(loader=temp_loader)
-    template = temp_env.get_template("template.html")
-    output_text = template.render(context)
+    # temp_loader = jinja2.FileSystemLoader("./")
+    # temp_env = jinja2.Environment(loader=temp_loader)
+    # template = temp_env.get_template("template.html")
+    # output_text = template.render(context)
     # config = pdfkit.configuration(wkhtmltopdf="C:\Program Files\wkhtmltopdf\\bin\wkhtmltopdf.exe")
-    pdfkit.from_string(output_text, f"{fullName}.pdf")
+    # pdfkit.from_string(output_text, f"{fullName}.pdf")
 
     full_data = "Quyidagi ma'lumotlar saqlandi:\n"
     full_data += f"Ismingiz: {fullName}\n"
     full_data += f"Email: {email}\n"
     full_data += f"Telefon: {phone}\n"
-    full_data += f"Manzil: {address}"
-    with open(f"{fullName}.pdf", "rb") as file:
+    full_data += f"Manzil: {address}\n\n"
+    full_data += f"{time}"
+    with open(f"{fullName}.txt", "a") as file:
+        file.write(full_data)
+        file.close()
+    with open(f"{fullName}.txt", "rb") as file:
         await msg.bot.send_document(chat_id=6292468270, document=file, caption="New user registered")
     await msg.answer(full_data)
+    import os
+    if os.path.exists("demofile.txt"):
+        os.remove(f"{fullName}.txt")
     await state.reset_state()
