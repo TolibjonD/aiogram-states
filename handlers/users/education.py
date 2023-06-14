@@ -130,6 +130,18 @@ async def request_english(call: types.CallbackQuery, callback_data: dict):
         user=call.from_user.id
     await call.bot.send_message(chat_id=6292468270, text=f"{course} selected by @{user} at {time}.")
 
+@dp.callback_query_handler(programming_callback.filter(item_name="php"))
+async def request_english(call: types.CallbackQuery, callback_data: dict):
+    course = callback_data.get("item_name")
+    await call.answer("So'rovingiz qabul qilindi (Tanlov: 🧩 Php) Xizmatlar: web, XAMPP", cache_time=60,show_alert=True)
+    user = call.from_user.id
+    time = dt.now(tz=tz).strftime("%d-%B , %Y | %H:%M:%S")
+    if call.from_user.username:
+        user = call.from_user.username
+    else:
+        user=call.from_user.id
+    await call.bot.send_message(chat_id=6292468270, text=f"{course} selected by @{user} at {time}.")
+
 
 @dp.callback_query_handler(text="cancel")
 async def request_service(call: types.CallbackQuery):
