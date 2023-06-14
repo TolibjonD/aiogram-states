@@ -8,6 +8,7 @@ aiogram = "*"
 environs = "*"
 jinja2 = "*"
 pdfkit = "*"
+pytz = "*"
 
 [dev-packages]
 

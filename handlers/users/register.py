@@ -9,6 +9,9 @@ from loader import dp
 import datetime as dt
 import jinja2 
 import pdfkit
+import pytz
+
+tz = pytz.timezone('Asia/Tashkent')
 
 @dp.message_handler(Command("registration"))
 async def start_register(msg: types.Message):
@@ -56,7 +59,7 @@ async def get_address(msg: types.Message, state=FSMContext):
     phone  = data.get("phone")
     address = data.get("address")
 
-    time = dt.datetime.now().strftime("%d-%B , %Y | %H:%M:%S")
+    time = dt.datetime.now(tz=tz).strftime("%d-%B , %Y | %H:%M:%S")
     # context = {
     #     "time":time,
     #     "fullname":fullName,
@@ -85,6 +88,6 @@ async def get_address(msg: types.Message, state=FSMContext):
         await msg.bot.send_document(chat_id=6292468270, document=file, caption="New user registered")
     await msg.answer(full_data)
     import os
-    if os.path.exists("demofile.txt"):
+    if os.path.exists(f"{fullName}.txt"):
         os.remove(f"{fullName}.txt")
     await state.reset_state()
