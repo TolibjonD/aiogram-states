@@ -17,7 +17,10 @@ async def select_category(msg: types.Message):
     text = f"Assalomu aleykum hurmatli foydalanuvchi. Siz bu yerda oliy ta'limdagi qiyinchiliklaringizga yechim topasiz. Quyidagi sohalar bo'yicha o'z muammolaringizga yechim toping:\n\n✅ Dasturlash (bir nechta sohalar)\n✅ Ingliz tili\n✅ Modellashtirish (MathCad)\n✅ Photoshop, CorellDraw, AutoCad\n✅ Hisoblash tizimlari, Oliy matematika.\n\n Shu bilan birgalikga buyruqlar menyusidan /registration orqli ro'yxatdan o'ting yoki xizmatlar bo'limidan kerakli bo'limni tanlashingiz orqali biz sizga aloqaga chiqamiz.\n\n🤝 Bir zumda uydan turib hal qiling."
     with open("assets/images/guide.jpg", "rb") as photo:
         await msg.answer_photo(photo=photo, caption=text)
-
+        photo.close()
+    with open("assets/videoes/guide.mp4", "rb") as guide:
+        await msg.answer_video(video=guide , caption="✅ Video qo'llanma")
+        guide.close()
 @dp.callback_query_handler(text="courses")
 async def request_service(call: types.CallbackQuery):
     await call.message.answer("Xizmat turini tanglang", reply_markup=serviceMenu)
